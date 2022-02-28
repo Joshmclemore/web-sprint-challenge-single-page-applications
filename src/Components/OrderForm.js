@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup'
 import schema from '../Validation/formSchema';
+import '../App.css'
 
 
 const initialFormValues = {
@@ -60,6 +61,7 @@ const OrderForm = (props) => {
     const submitForm = (e) => {
         e.preventDefault()
         orderSubmit(form)
+        setForm(initialFormValues)
     }
 
     useEffect(()=> {
@@ -129,7 +131,7 @@ const OrderForm = (props) => {
                 <label>Bell Peppers
                     <input
                     type="checkbox"
-                    name="toppping4"
+                    name="topping4"
                     checked={form.topping4}
                     onChange={formChange}
                     />

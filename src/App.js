@@ -3,16 +3,30 @@ import { Switch, Route, Link } from 'react-router-dom';
 import OrderForm from "./Components/OrderForm";
 // import * as yup from 'yup';
 // import schema from './Validation/formSchema';
-// import axios from 'axios';
-
+import axios from 'axios';
+import './App.css'
 
 
 const App = () => {
 
   const [orders, setOrders] = useState([])
+ 
+  /** 
+  - [ ] An Add to Order button that has an id of "order-button" and that submits form and returns a database record of name, size, toppings and special instructions
 
+    1. Create a new state variable + hook
+    2. Post to [reqres](https://reqres.in/) with `axios` (the link you should use is step 4)
+    3. Log data in console
+    4. The URL you should use is `https://reqres.in/api/orders`. The tests are based on this URL.
+  */
+  
   const orderSubmit = (newOrder) => {
-    setOrders([...orders, newOrder])
+    axios.post('https://reqres.in/api/orders', newOrder)
+    .then(res=> {
+      // console.log(res.data)
+      setOrders([ ...orders, res.data])
+    })
+    .catch(err => console.error(err))
   }
 
 
@@ -53,8 +67,10 @@ const App = () => {
       </header>
       <Switch>
         <Route exact path="/">
-          <h1>Lambda Eats</h1>
-          <p>You can remove this code and create your own header</p>
+          <div id="container">
+            <h1>Bloom Tech Eats</h1>
+            <p>Press the "Order Pizza" button to place an order now!</p>
+          </div>
         </Route>
         <Route path="/pizza">
           <OrderForm orderSubmit={orderSubmit}/>
